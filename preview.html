@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Transcrição Automatizada</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#070707;
+  --panel:#111111;
+  --panel-2:#171717;
+  --card:#101010;
+  --graphite:#1d1d1d;
+  --line:rgba(255,255,255,.08);
+  --muted:#a7a7a7;
+  --soft:#d7d7d7;
+  --orange:#ff7a1a;
+  --orange-2:#ff9a3d;
+  --orange-dark:#5a2a0d;
+  --success:#7df0a8;
+}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:#fff;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top left,rgba(255,122,26,.22) 0%,transparent 34%),
+    radial-gradient(circle at bottom right,rgba(255,154,61,.12) 0%,transparent 34%),
+    linear-gradient(180deg,#090909,#050505);
+  z-index:-1;
+}
+.sidebar{
+  width:250px;
+  height:100vh;
+  position:fixed;
+  top:0;
+  left:0;
+  background:rgba(10,10,10,.92);
+  backdrop-filter:blur(20px);
+  border-right:1px solid var(--line);
+  padding:28px;
+}
+.logo{
+  font-size:24px;
+  font-weight:800;
+  margin-bottom:42px;
+  letter-spacing:-.03em;
+}
+.logo span{color:var(--orange)}
+.menu{display:flex;flex-direction:column;gap:12px}
+.menu a{
+  text-decoration:none;
+  color:#a0a0a0;
+  padding:14px 16px;
+  border-radius:14px;
+  transition:.25s;
+  font-size:15px;
+}
+.menu a:hover,.menu a.active{
+  background:#1a1a1a;
+  color:#fff;
+  box-shadow:inset 3px 0 0 var(--orange);
+}
+.main{margin-left:250px;padding:40px}
+.topbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  margin-bottom:28px;
+  gap:20px;
+}
+.topbar h1{font-size:38px;font-weight:800;letter-spacing:-.04em}
+.topbar p{margin-top:8px;color:var(--muted)}
+.btn{
+  border:none;
+  border-radius:16px;
+  cursor:pointer;
+  transition:.25s;
+  font-weight:800;
+  letter-spacing:-.01em;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--orange),var(--orange-2));
+  color:#0b0b0b;
+  padding:16px 24px;
+  box-shadow:0 18px 45px rgba(255,122,26,.22);
+}
+.btn-dark{
+  background:#1a1a1a;
+  color:#fff;
+  padding:16px 24px;
+  border:1px solid var(--line);
+}
+.btn:hover{transform:translateY(-2px)}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px;align-items:start}
+.card{
+  background:rgba(16,16,16,.88);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:28px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 24px 80px rgba(0,0,0,.26);
+}
+.card-title{font-size:22px;font-weight:800;margin-bottom:24px;letter-spacing:-.03em}
+.upload{
+  border:2px dashed rgba(255,122,26,.33);
+  border-radius:26px;
+  background:linear-gradient(180deg,#111,#0b0b0b);
+  padding:46px;
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
+  display:block;
+}
+.upload:hover{border-color:var(--orange);background:#111}
+.upload-icon{
+  width:66px;
+  height:66px;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin:0 auto 18px;
+  border-radius:22px;
+  background:rgba(255,122,26,.12);
+  color:var(--orange);
+  font-size:32px;
+}
+.upload h3{margin-bottom:10px;font-size:22px;letter-spacing:-.03em}
+.upload p{color:#a6a6a6;line-height:1.7}
+#fileName{margin-top:16px;color:var(--orange-2);font-size:14px;font-weight:700}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+.group{display:flex;flex-direction:column;gap:10px}
+label{font-size:14px;color:#d2d2d2}
+input,select{
+  height:56px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:#0b0b0b;
+  color:#fff;
+  padding:0 16px;
+  font-size:15px;
+  outline:none;
+}
+input:focus,select:focus{border-color:rgba(255,122,26,.75)}
+.options{margin-top:26px;display:flex;flex-direction:column;gap:16px}
+.option{display:flex;align-items:center;gap:12px;color:#d0d0d0}
+.option input{width:18px;height:18px;accent-color:var(--orange)}
+.summary{
+  margin-top:28px;
+  background:linear-gradient(135deg,#141414,#21150e);
+  border:1px solid rgba(255,122,26,.16);
+  border-radius:24px;
+  padding:28px;
+}
+.summary-top{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.badge{
+  background:rgba(255,122,26,.12);
+  color:var(--orange-2);
+  padding:8px 12px;
+  border-radius:999px;
+  font-size:12px;
+  font-weight:800;
+}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.info{background:rgba(255,255,255,.04);border:1px solid var(--line);border-radius:18px;padding:20px}
+.info span{color:#a8a8a8;font-size:13px}
+.info strong{display:block;margin-top:8px;font-size:28px;letter-spacing:-.04em}
+.total{margin-top:22px;background:#0b0b0b;border:1px solid var(--line);border-radius:22px;padding:24px}
+.total small{color:#a7a7a7}
+.total h2{font-size:44px;margin-top:8px;color:#fff;letter-spacing:-.05em}
+.price-note{margin-top:12px;color:#999;line-height:1.6;font-size:13px}
+.pix{margin-top:26px;background:#111;border:1px solid var(--line);border-radius:24px;padding:28px}
+.pix-top{display:flex;justify-content:space-between;align-items:center;gap:14px}
+.status{background:rgba(255,122,26,.12);color:var(--orange-2);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800}
+.qrcode{
+  width:220px;
+  height:220px;
+  background:
+    linear-gradient(90deg,#fff 10px,transparent 10px) 0 0/22px 22px,
+    linear-gradient(#fff 10px,transparent 10px) 0 0/22px 22px,
+    #0b0b0b;
+  border:14px solid #fff;
+  border-radius:18px;
+  margin:28px auto;
+}
+.pixcode{background:#0b0b0b;border:1px solid var(--line);border-radius:16px;padding:16px;font-size:13px;color:#b7b7b7;word-break:break-all;line-height:1.6}
+.flow{display:flex;flex-direction:column;gap:18px}
+.step{background:#0b0b0b;border-radius:22px;padding:22px;border:1px solid var(--line);position:relative}
+.step::after{content:'↓';position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);color:var(--orange);font-size:22px}
+.step:last-child::after{display:none}
+.step-top{display:flex;justify-content:space-between;align-items:center;gap:14px;margin-bottom:10px}
+.step-badge{background:rgba(255,122,26,.12);color:var(--orange-2);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:800}
+.step p{color:#a7a7a7;line-height:1.7;font-size:14px}
+.processing{margin-top:24px}
+.progress{width:100%;height:12px;background:#0b0b0b;border-radius:999px;overflow:hidden;margin-top:16px;border:1px solid var(--line)}
+.progress div{width:72%;height:100%;background:linear-gradient(90deg,var(--orange),var(--orange-2))}
+.logs{margin-top:24px;background:#0b0b0b;border:1px solid var(--line);border-radius:22px;padding:22px;height:232px;overflow:auto}
+.log{margin-bottom:14px;color:#cfcfcf;font-size:14px}.log span{color:var(--success)}
+.downloads{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.download{background:#111;border:1px solid var(--line);border-radius:20px;padding:22px}
+.download h4{margin-bottom:8px}.download p{color:#a4a4a4;line-height:1.6;font-size:14px}
+.download button{width:100%;height:52px;margin-top:18px;border:none;border-radius:14px;background:linear-gradient(135deg,var(--orange),var(--orange-2));color:#0b0b0b;font-weight:800;cursor:pointer}
+.notice{margin-top:18px;padding:18px;border-radius:18px;background:rgba(255,122,26,.08);border:1px solid rgba(255,122,26,.14);color:#d6d6d6;line-height:1.6;font-size:14px}
+@media(max-width:1100px){.grid{grid-template-columns:1fr}}
+@media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:24px}.topbar{align-items:flex-start;flex-direction:column}.form-grid,.summary-grid,.downloads{grid-template-columns:1fr}.topbar h1{font-size:31px}}
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo">Agência<span>Ângelo</span></div>
+  <div class="menu">
+    <a href="#" class="active">Dashboard</a>
+    <a href="#">Uploads</a>
+    <a href="#">Processamentos</a>
+    <a href="#">Pagamentos</a>
+    <a href="#">Downloads</a>
+  </div>
+</div>
+<div class="main">
+  <div class="topbar">
+    <div>
+      <h1>Transcrição Automatizada</h1>
+      <p>Upload → Cálculo automático → Pagamento → Transcrição → Exportação</p>
+    </div>
+    <button class="btn btn-primary">Novo Projeto</button>
+  </div>
+  <div class="grid">
+    <div>
+      <div class="card">
+        <div class="card-title">Upload da Aula</div>
+        <label class="upload" id="dropZone">
+          <input type="file" id="videoInput" accept="video/*" hidden>
+          <div class="upload-icon">▶</div>
+          <h3>Arraste o vídeo aqui</h3>
+          <p>Envie uma aula em vídeo para simular a análise de duração e o cálculo automático do valor.</p>
+          <div id="fileName">Nenhum arquivo selecionado</div>
+        </label>
+        <div class="form-grid">
+          <div class="group">
+            <label>Idioma Original</label>
+            <select>
+              <option>Inglês</option>
+              <option>Espanhol</option>
+              <option>Português</option>
+            </select>
+          </div>
+          <div class="group">
+            <label>Idioma Final</label>
+            <select><option>Português BR</option></select>
+          </div>
+          <div class="group">
+            <label>Formato da Entrega</label>
+            <select>
+              <option>Texto transcrito</option>
+              <option>Texto traduzido</option>
+              <option>Texto transcrito + traduzido</option>
+            </select>
+          </div>
+          <div class="group">
+            <label>Prioridade</label>
+            <select>
+              <option>Padrão</option>
+              <option>Expressa</option>
+            </select>
+          </div>
+        </div>
+        <div class="options">
+          <div class="option"><input type="checkbox" checked> Transcrição automática</div>
+          <div class="option"><input type="checkbox" checked> Revisão estrutural do texto</div>
+          <div class="option"><input type="checkbox" checked> Organização por blocos de aula</div>
+          <div class="option"><input type="checkbox" checked> Exportação em arquivo editável</div>
+        </div>
+        <div class="summary">
+          <div class="summary-top">
+            <h3>Resumo do Projeto</h3>
+            <div class="badge">cálculo automático</div>
+          </div>
+          <div class="summary-grid">
+            <div class="info"><span>Duração detectada</span><strong id="duration">00min</strong></div>
+            <div class="info"><span>Tempo estimado</span><strong id="time">00min</strong></div>
+          </div>
+          <div class="total">
+            <small>Valor final do processamento</small>
+            <h2 id="price">R$ 0,00</h2>
+            <div class="price-note">Esta é uma simulação visual para aprovação do fluxo. Nesta versão, nenhum pagamento ou processamento real será executado.</div>
+          </div>
+          <div style="margin-top:22px;"><button class="btn btn-primary" style="width:100%;height:58px;font-size:16px;">GERAR PIX</button></div>
+        </div>
+      </div>
+      <div class="pix">
+        <div class="pix-top">
+          <h3>Pagamento PIX</h3>
+          <div class="status">simulação</div>
+        </div>
+        <div class="qrcode"></div>
+        <div class="pixcode">00020126580014BR.GOV.BCB.PIX0136EXEMPLO-PIX-ASAAS-1234567895204000053039865802BR5925AGENCIA ANGELO6009SAOPAULO62070503***6304E2CA</div>
+        <div style="margin-top:20px;"><button class="btn btn-primary" style="width:100%;height:54px;">COPIAR PIX</button></div>
+      </div>
+    </div>
+    <div>
+      <div class="card">
+        <div class="card-title">Fluxo Automatizado</div>
+        <div class="flow">
+          <div class="step"><div class="step-top"><strong>Upload do Vídeo</strong><div class="step-badge">Upload</div></div><p>O cliente envia a aula e o sistema detecta automaticamente a duração do arquivo.</p></div>
+          <div class="step"><div class="step-top"><strong>Cálculo do Valor</strong><div class="step-badge">Preço</div></div><p>O valor é calculado conforme o tamanho da aula e os serviços selecionados.</p></div>
+          <div class="step"><div class="step-top"><strong>Pagamento PIX</strong><div class="step-badge">Asaas</div></div><p>O processamento só inicia após confirmação do pagamento.</p></div>
+          <div class="step"><div class="step-top"><strong>Transcrição IA</strong><div class="step-badge">IA</div></div><p>O conteúdo da aula é convertido em texto de forma automatizada.</p></div>
+          <div class="step"><div class="step-top"><strong>Organização do Conteúdo</strong><div class="step-badge">Texto</div></div><p>O texto é estruturado por blocos para facilitar leitura, edição e uso posterior.</p></div>
+          <div class="step"><div class="step-top"><strong>Exportação Final</strong><div class="step-badge">Entrega</div></div><p>O cliente recebe os arquivos finais prontos para download.</p></div>
+        </div>
+      </div>
+      <div class="card processing">
+        <div class="card-title">Processamento IA</div>
+        <div id="processingFile">aula_exemplo_modulo01.mp4</div>
+        <div class="progress"><div></div></div>
+        <div class="logs">
+          <div class="log"><span>[OK]</span> Upload detectado</div>
+          <div class="log"><span>[OK]</span> Duração analisada</div>
+          <div class="log"><span>[OK]</span> Valor calculado</div>
+          <div class="log"><span>[OK]</span> PIX gerado</div>
+          <div class="log"><span>[OK]</span> Pagamento aprovado</div>
+          <div class="log"><span>[PROCESSANDO]</span> Transcrição em andamento...</div>
+        </div>
+        <div class="notice">Esta área demonstra como a cliente visualizará o andamento do processo após o pagamento.</div>
+      </div>
+      <div class="card">
+        <div class="card-title">Downloads Finais</div>
+        <div class="downloads">
+          <div class="download"><h4>Texto Transcrito</h4><p>Arquivo editável com a transcrição completa da aula.</p><button>DOWNLOAD</button></div>
+          <div class="download"><h4>Texto Traduzido</h4><p>Versão traduzida e organizada do conteúdo.</p><button>DOWNLOAD</button></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+const input=document.getElementById('videoInput');
+const dropZone=document.getElementById('dropZone');
+function calculateFromFile(file){
+  if(!file)return;
+  document.getElementById('fileName').innerText=file.name;
+  document.getElementById('processingFile').innerText=file.name;
+  const video=document.createElement('video');
+  video.preload='metadata';
+  video.onloadedmetadata=function(){
+    window.URL.revokeObjectURL(video.src);
+    const minutes=Math.max(1,Math.ceil(video.duration/60));
+    document.getElementById('duration').innerText=minutes+'min';
+    const estimated=Math.max(2,Math.ceil(minutes*.30));
+    document.getElementById('time').innerText=estimated+'min';
+    let price=0;
+    if(minutes<=20){price=29.90}
+    else if(minutes<=40){price=49.90}
+    else if(minutes<=60){price=79.90}
+    else{price=Number((minutes*1.8).toFixed(2))}
+    document.getElementById('price').innerText='R$ '+price.toFixed(2).replace('.',',');
+  };
+  video.onerror=function(){
+    alert('Não foi possível ler a duração deste arquivo. Teste com um vídeo em MP4, MOV ou WEBM.');
+  };
+  video.src=URL.createObjectURL(file);
+}
+input.addEventListener('change',function(){calculateFromFile(this.files[0])});
+['dragenter','dragover'].forEach(eventName=>{dropZone.addEventListener(eventName,function(e){e.preventDefault();dropZone.style.borderColor='var(--orange)';});});
+['dragleave','drop'].forEach(eventName=>{dropZone.addEventListener(eventName,function(e){e.preventDefault();dropZone.style.borderColor='rgba(255,122,26,.33)';});});
+dropZone.addEventListener('drop',function(e){const file=e.dataTransfer.files[0];calculateFromFile(file)});
+</script>
+</body>
+</html>
