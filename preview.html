@@ -1,0 +1,597 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Transcrição Automatizada | Pacote 90h</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --bg:#070707;
+  --panel:#111111;
+  --panel-2:#171717;
+  --card:#101010;
+  --graphite:#1d1d1d;
+  --line:rgba(255,255,255,.08);
+  --muted:#a7a7a7;
+  --soft:#d7d7d7;
+  --orange:#ff7a1a;
+  --orange-2:#ff9a3d;
+  --orange-dark:#5a2a0d;
+  --success:#7df0a8;
+  --warning:#ffd36a;
+  --danger:#ff7b7b;
+}
+body{
+  font-family:'Inter',sans-serif;
+  background:var(--bg);
+  color:#fff;
+  overflow-x:hidden;
+}
+body::before{
+  content:'';
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at top left,rgba(255,122,26,.23) 0%,transparent 34%),
+    radial-gradient(circle at bottom right,rgba(255,154,61,.12) 0%,transparent 34%),
+    linear-gradient(180deg,#090909,#050505);
+  z-index:-1;
+}
+.sidebar{
+  width:250px;
+  height:100vh;
+  position:fixed;
+  top:0;
+  left:0;
+  background:rgba(9,9,9,.94);
+  backdrop-filter:blur(20px);
+  border-right:1px solid var(--line);
+  padding:28px;
+}
+.logo{
+  font-size:24px;
+  font-weight:900;
+  margin-bottom:42px;
+  letter-spacing:-.04em;
+}
+.logo span{color:var(--orange)}
+.menu{display:flex;flex-direction:column;gap:12px}
+.menu a{
+  text-decoration:none;
+  color:#9b9b9b;
+  padding:14px 16px;
+  border-radius:14px;
+  transition:.25s;
+  font-size:14px;
+  font-weight:600;
+}
+.menu a:hover,.menu a.active{background:#181818;color:#fff}
+.main{margin-left:250px;padding:40px}
+.topbar{display:flex;justify-content:space-between;align-items:center;margin-bottom:28px;gap:20px}
+.topbar h1{font-size:38px;font-weight:900;letter-spacing:-.05em}
+.topbar p{margin-top:8px;color:#a0a0a0;line-height:1.6;max-width:780px}
+.btn{
+  border:none;
+  border-radius:16px;
+  cursor:pointer;
+  transition:.25s;
+  font-weight:800;
+  font-family:'Inter',sans-serif;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--orange),var(--orange-2));
+  color:#111;
+  padding:16px 24px;
+  box-shadow:0 18px 38px rgba(255,122,26,.16);
+}
+.btn-dark{
+  background:#171717;
+  color:#fff;
+  padding:14px 18px;
+  border:1px solid var(--line);
+}
+.btn-outline{
+  background:transparent;
+  color:#fff;
+  padding:14px 18px;
+  border:1px solid rgba(255,122,26,.35);
+}
+.btn:hover{transform:translateY(-2px)}
+.btn:disabled{opacity:.45;cursor:not-allowed;transform:none}
+.grid{display:grid;grid-template-columns:1.1fr .9fr;gap:24px}
+.card{
+  background:rgba(16,16,16,.86);
+  border:1px solid var(--line);
+  border-radius:28px;
+  padding:28px;
+  backdrop-filter:blur(20px);
+  box-shadow:0 30px 90px rgba(0,0,0,.25);
+}
+.card + .card{margin-top:24px}
+.card-title{font-size:22px;font-weight:900;margin-bottom:24px;letter-spacing:-.03em}
+.package-card{
+  background:linear-gradient(135deg,rgba(255,122,26,.18),rgba(255,154,61,.06));
+  border:1px solid rgba(255,122,26,.24);
+}
+.package-card.package-hidden{display:none}
+.package-offer{margin-top:16px;background:rgba(255,122,26,.08);border:1px solid rgba(255,122,26,.22);border-radius:20px;padding:18px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.package-offer strong{display:block;font-size:18px;color:#fff;margin-bottom:4px}.package-offer span{display:block;color:#bdbdbd;font-size:14px;line-height:1.5}
+.package-header{display:flex;align-items:flex-start;justify-content:space-between;gap:18px;margin-bottom:22px}
+.package-header h2{font-size:30px;line-height:1.05;letter-spacing:-.05em;margin-bottom:8px}
+.package-header p{color:#bdbdbd;line-height:1.7;max-width:520px}
+.price-pill{
+  min-width:170px;
+  text-align:center;
+  background:#0d0d0d;
+  border:1px solid rgba(255,122,26,.25);
+  border-radius:22px;
+  padding:18px;
+}
+.price-pill span{font-size:12px;color:#a0a0a0;text-transform:uppercase;letter-spacing:.08em;font-weight:800}
+.price-pill strong{display:block;font-size:30px;margin-top:6px;color:var(--orange)}
+.package-benefits{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:22px 0}
+.benefit{
+  background:rgba(255,255,255,.04);
+  border:1px solid rgba(255,255,255,.06);
+  border-radius:18px;
+  padding:16px;
+  color:#d9d9d9;
+  line-height:1.5;
+  font-size:14px;
+}
+.package-actions{display:flex;gap:14px;flex-wrap:wrap;margin-top:22px}
+.unlock-banner{
+  display:none;
+  margin-top:18px;
+  background:rgba(125,240,168,.08);
+  border:1px solid rgba(125,240,168,.22);
+  color:#dfffea;
+  border-radius:18px;
+  padding:16px;
+  line-height:1.6;
+}
+.unlock-banner.active{display:block}
+.progress-wrap{margin-top:22px}
+.progress-label{display:flex;justify-content:space-between;gap:20px;margin-bottom:12px;color:#cfcfcf;font-size:14px;font-weight:700}
+.progress-bar{height:14px;width:100%;border-radius:999px;background:#0b0b0b;border:1px solid var(--line);overflow:hidden}
+.progress-fill{height:100%;width:0%;background:linear-gradient(90deg,var(--orange),var(--orange-2));transition:.4s}
+.upload{
+  border:2px dashed rgba(255,122,26,.26);
+  border-radius:26px;
+  background:#0d0d0d;
+  padding:46px;
+  text-align:center;
+  cursor:pointer;
+  transition:.25s;
+  display:block;
+}
+.upload:hover{border-color:var(--orange);background:#111}
+.upload-icon{font-size:52px;margin-bottom:18px}
+.upload h3{margin-bottom:10px;font-size:22px;letter-spacing:-.03em}
+.upload p{color:#9d9d9d;line-height:1.7}
+.upload small{display:block;margin-top:14px;color:#777;line-height:1.5}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:28px}
+.group{display:flex;flex-direction:column;gap:10px}
+label{font-size:14px;color:#cfcfcf;font-weight:700}
+input,select{
+  height:56px;
+  border-radius:16px;
+  border:1px solid var(--line);
+  background:#0d0d0d;
+  color:#fff;
+  padding:0 16px;
+  font-size:15px;
+  font-family:'Inter',sans-serif;
+}
+.options{margin-top:26px;display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.option{display:flex;align-items:center;gap:12px;color:#d5d5d5;background:#0d0d0d;border:1px solid var(--line);padding:14px;border-radius:16px;font-size:14px}
+.summary{margin-top:28px;background:linear-gradient(135deg,#141414,#1b1b1b);border-radius:24px;padding:28px;border:1px solid var(--line)}
+.summary-top{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.badge{background:rgba(255,122,26,.12);color:var(--orange-2);padding:8px 12px;border-radius:999px;font-size:12px;font-weight:800;text-transform:lowercase}
+.summary-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:24px}
+.info{background:rgba(255,255,255,.04);border-radius:18px;padding:20px;border:1px solid rgba(255,255,255,.05)}
+.info span{color:#989898;font-size:13px;font-weight:700}
+.info strong{display:block;margin-top:8px;font-size:28px;letter-spacing:-.04em}
+.total{margin-top:22px;background:#0d0d0d;border-radius:22px;padding:24px;border:1px solid rgba(255,122,26,.16)}
+.total small{color:#9d9d9d;font-weight:700}
+.total h2{font-size:44px;margin-top:8px;letter-spacing:-.06em;color:var(--orange)}
+.price-rule{margin-top:20px;display:grid;grid-template-columns:1fr;gap:10px}
+.rule{display:flex;justify-content:space-between;gap:16px;background:#0d0d0d;border:1px solid var(--line);border-radius:15px;padding:13px 16px;color:#d1d1d1;font-size:14px}
+.rule strong{color:#fff}
+.rule.active{border-color:rgba(255,122,26,.55);background:rgba(255,122,26,.08)}
+.payment{display:none;margin-top:24px;background:#111;border-radius:24px;padding:28px;border:1px solid rgba(255,122,26,.18)}
+.payment.active{display:block}
+.payment-top{display:flex;justify-content:space-between;align-items:center;gap:16px}
+.status{background:#2a1b10;color:#ffbd7c;padding:8px 12px;border-radius:999px;font-size:12px;font-weight:900;text-transform:lowercase}
+.qrcode{width:210px;height:210px;background:#fff;border-radius:18px;margin:28px auto;position:relative;overflow:hidden}
+.qrcode::before{content:'';position:absolute;inset:18px;background:repeating-linear-gradient(45deg,#111 0 9px,#fff 9px 18px);opacity:.88}
+.qrcode::after{content:'PIX';position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);background:#fff;color:#111;padding:10px 14px;border-radius:10px;font-weight:900;letter-spacing:.08em}
+.pixcode{background:#0b0b0b;border-radius:16px;padding:16px;font-size:13px;color:#aaa;word-break:break-all;border:1px solid var(--line)}
+.flow{display:flex;flex-direction:column;gap:18px}
+.step{background:#0d0d0d;border-radius:22px;padding:22px;border:1px solid var(--line);position:relative}
+.step::after{content:'↓';position:absolute;left:50%;bottom:-22px;transform:translateX(-50%);color:var(--orange);font-size:22px}
+.step:last-child::after{display:none}
+.step-top{display:flex;justify-content:space-between;margin-bottom:10px;gap:16px}
+.step-badge{background:rgba(255,122,26,.12);color:var(--orange-2);padding:6px 10px;border-radius:999px;font-size:12px;font-weight:900}
+.step p{color:#a5a5a5;line-height:1.7;font-size:14px}
+.processing{margin-top:24px}
+.processing-line{display:flex;justify-content:space-between;gap:16px;color:#d4d4d4;line-height:1.6}
+.logs{margin-top:24px;background:#0d0d0d;border-radius:22px;padding:22px;height:240px;overflow:auto;border:1px solid var(--line)}
+.log{margin-bottom:14px;color:#c7c7c7;font-size:14px}.log span{color:#7ef0a7;font-weight:900}.log .wait{color:#ffbd7c}
+.downloads{margin-top:24px;display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.download{background:#111;border-radius:20px;padding:22px;border:1px solid var(--line)}
+.download h4{margin-bottom:8px}.download p{color:#999;line-height:1.6;font-size:14px}.download button{width:100%;height:52px;margin-top:18px;border:none;border-radius:14px;background:#242424;color:#fff;font-weight:800;cursor:not-allowed}
+.file-list{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+.file-row{display:flex;justify-content:space-between;gap:16px;background:#0d0d0d;border:1px solid var(--line);border-radius:14px;padding:13px 15px;color:#d0d0d0;font-size:14px}
+.file-row span:last-child{color:var(--orange-2);font-weight:800;white-space:nowrap}
+.alert{margin-top:16px;border-radius:16px;padding:14px 16px;line-height:1.6;font-size:14px;display:none}.alert.show{display:block}.alert.warning{background:rgba(255,211,106,.08);border:1px solid rgba(255,211,106,.22);color:#ffe6a3}.alert.success{background:rgba(125,240,168,.08);border:1px solid rgba(125,240,168,.22);color:#dfffea}.alert.danger{background:rgba(255,123,123,.08);border:1px solid rgba(255,123,123,.22);color:#ffd0d0}
+.reset{margin-top:18px;color:#777;font-size:12px;text-decoration:underline;cursor:pointer;display:inline-block}
+@media(max-width:1100px){.grid{grid-template-columns:1fr}.package-header{flex-direction:column}.price-pill{text-align:left}.package-benefits{grid-template-columns:1fr}}
+@media(max-width:900px){.sidebar{display:none}.main{margin-left:0;padding:24px}.topbar{align-items:flex-start;flex-direction:column}.topbar h1{font-size:32px}.form-grid,.summary-grid,.downloads,.options{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div class="sidebar">
+  <div class="logo">Agência<span>Ângelo</span></div>
+  <div class="menu">
+    <a href="#" class="active">Dashboard</a>
+    <a href="#pacote" id="menuPackageLink">Pacote 90h</a>
+    <a href="#upload">Envio de Aulas</a>
+    <a href="#processamento">Processamento</a>
+    <a href="#downloads">Downloads</a>
+  </div>
+</div>
+<main class="main">
+  <div class="topbar">
+    <div>
+      <h1>Transcrição Automatizada</h1>
+      <p>Envie suas aulas, acompanhe o consumo do pacote e receba os arquivos finais organizados para revisão e uso.</p>
+    </div>
+    <button class="btn btn-dark" id="newProjectBtn">Novo envio</button>
+  </div>
+  <div class="grid" style="margin-top:24px">
+    <div>
+      <section class="card" id="upload">
+        <div class="card-title">Envio das aulas</div>
+        <label class="upload">
+          <input type="file" id="videoInput" accept="video/*" multiple hidden>
+          <div class="upload-icon">🎙️</div>
+          <h3>Arraste ou selecione os vídeos</h3>
+          <p>O sistema identifica a duração dos arquivos e calcula automaticamente o valor ou o consumo do pacote.</p>
+          <small>Você pode selecionar um ou vários vídeos no mesmo envio.</small>
+        </label>
+        <div class="form-grid">
+          <div class="group">
+            <label>Idioma Original</label>
+            <select><option>Inglês</option><option>Espanhol</option><option>Português</option></select>
+          </div>
+          <div class="group">
+            <label>Idioma Final</label>
+            <select><option>Português BR</option></select>
+          </div>
+          <div class="group">
+            <label>Tipo de entrega</label>
+            <select><option>Texto + narração</option><option>Somente texto</option><option>Somente narração</option></select>
+          </div>
+          <div class="group">
+            <label>Ritmo da narração</label>
+            <input value="Natural e didático">
+          </div>
+        </div>
+        <div class="options">
+          <div class="option"><input type="checkbox" checked> Transcrição do conteúdo</div>
+          <div class="option"><input type="checkbox" checked> Adaptação para português natural</div>
+          <div class="option"><input type="checkbox" checked> Narração profissional</div>
+          <div class="option"><input type="checkbox" checked> Organização dos arquivos finais</div>
+        </div>
+        <div class="summary">
+          <div class="summary-top">
+            <h3>Resumo do envio</h3>
+            <div class="badge" id="modeBadge">avulso</div>
+          </div>
+          <div class="summary-grid">
+            <div class="info"><span>Duração selecionada</span><strong id="duration">00min</strong></div>
+            <div class="info"><span>Tempo estimado</span><strong id="time">00min</strong></div>
+          </div>
+          <div class="total">
+            <small id="totalLabel">Valor final do envio</small>
+            <h2 id="price">R$ 0,00</h2>
+          </div>
+          <div class="price-rule" id="priceRules">
+            <div class="rule" data-rule="20"><span>Até 20min</span><strong>R$ 9,00</strong></div>
+            <div class="rule" data-rule="40"><span>21 a 40min</span><strong>R$ 18,00</strong></div>
+            <div class="rule" data-rule="60"><span>41 a 60min</span><strong>R$ 27,00</strong></div>
+            <div class="rule" data-rule="over"><span>Acima de 60min</span><strong>R$ 0,45/min</strong></div>
+          </div>
+          <div class="package-offer">
+            <div>
+              <strong>Pacote completo de 90 horas</strong>
+              <span>Contratação única de R$ 2.430,00 para enviar os arquivos de uma vez ou em vários envios.</span>
+            </div>
+            <button class="btn btn-primary" id="choosePackageBtn" type="button">Escolher pacote</button>
+          </div>
+          <div class="file-list" id="fileList"></div>
+          <div class="alert warning" id="warningBox"></div>
+          <div style="margin-top:22px;display:flex;gap:12px;flex-wrap:wrap">
+            <button class="btn btn-primary" id="processBtn" style="height:58px;font-size:16px;flex:1;min-width:230px">Iniciar processamento</button>
+            <button class="btn btn-dark" id="addToPackageBtn" style="height:58px;font-size:16px;min-width:210px">Adicionar ao pacote</button>
+          </div>
+          <span class="reset" id="resetDemo">reiniciar demonstração</span>
+        </div>
+      </section>
+    </div>
+    <div>
+      <section class="card">
+        <div class="card-title">Fluxo do serviço</div>
+        <div class="flow">
+          <div class="step"><div class="step-top"><strong>1. Contratação</strong><div class="step-badge">pacote</div></div><p>O pacote de 90 horas é liberado para a cliente após a confirmação do pagamento.</p></div>
+          <div class="step"><div class="step-top"><strong>2. Envio dos vídeos</strong><div class="step-badge">upload</div></div><p>A cliente pode subir os arquivos em lote ou fazer vários envios separados.</p></div>
+          <div class="step"><div class="step-top"><strong>3. Contagem de horas</strong><div class="step-badge">controle</div></div><p>Cada aula enviada é abatida automaticamente do saldo contratado.</p></div>
+          <div class="step"><div class="step-top"><strong>4. Processamento</strong><div class="step-badge">produção</div></div><p>O conteúdo é transformado, adaptado e preparado para a entrega final.</p></div>
+          <div class="step"><div class="step-top"><strong>5. Entrega</strong><div class="step-badge">download</div></div><p>Os arquivos finais ficam disponíveis de forma organizada para baixar.</p></div>
+        </div>
+      </section>
+      <section class="card processing" id="processamento">
+        <div class="card-title">Processamento</div>
+        <div class="processing-line">
+          <span id="currentFile">Nenhum arquivo em processamento</span>
+          <strong id="processPercent">0%</strong>
+        </div>
+        <div class="progress-bar" style="margin-top:16px"><div class="progress-fill" id="processFill"></div></div>
+        <div class="logs" id="logs">
+          <div class="log"><span class="wait">[AGUARDANDO]</span> Envie os arquivos para iniciar.</div>
+        </div>
+      </section>
+      <section class="card" id="downloads">
+        <div class="card-title">Downloads finais</div>
+        <div class="downloads">
+          <div class="download"><h4>Áudio final</h4><p>Arquivo de narração pronto para utilização.</p><button>DOWNLOAD</button></div>
+          <div class="download"><h4>Texto final</h4><p>Conteúdo transcrito, tratado e organizado.</p><button>DOWNLOAD</button></div>
+        </div>
+      </section>
+    </div>
+  </div>
+  <div style="margin-top:24px">
+  <section class="card package-card package-hidden" id="pacote">
+    <div class="package-header">
+      <div>
+        <h2>Pacote completo de 90 horas</h2>
+        <p>Contratação única para processar todo o curso. Após a liberação, você pode enviar os arquivos de uma vez ou em vários envios até completar o limite contratado.</p>
+      </div>
+      <div class="price-pill">
+        <span>valor do pacote</span>
+        <strong>R$ 2.430,00</strong>
+      </div>
+    </div>
+    <div class="package-benefits">
+      <div class="benefit"><strong>90 horas disponíveis</strong><br>Controle automático do saldo de horas do pacote.</div>
+      <div class="benefit"><strong>Envios flexíveis</strong><br>Suba uma aula por vez ou vários arquivos no mesmo envio.</div>
+      <div class="benefit"><strong>Processo organizado</strong><br>Arquivos separados por etapa para facilitar revisão e entrega.</div>
+      <div class="benefit"><strong>Arquivos finais</strong><br>Texto processado e áudio final prontos para uso.</div>
+    </div>
+    <div class="package-actions">
+      <button class="btn btn-primary" id="buyPackageBtn">Contratar pacote completo</button>
+      <button class="btn btn-outline" id="unlockPackageBtn">Confirmar liberação do pacote</button>
+    </div>
+    <div class="unlock-banner" id="unlockBanner">
+      Pacote liberado. Agora os envios serão abatidos do saldo de 90 horas contratado.
+    </div>
+    <div class="progress-wrap">
+      <div class="progress-label">
+        <span id="usedLabel">0h usadas</span>
+        <span id="remainingLabel">90h restantes</span>
+      </div>
+      <div class="progress-bar"><div class="progress-fill" id="packageProgress"></div></div>
+    </div>
+    <div class="payment" id="paymentBox">
+      <div class="payment-top">
+        <h3>Pagamento do pacote</h3>
+        <div class="status">aguardando confirmação</div>
+      </div>
+      <div class="qrcode"></div>
+      <div class="pixcode">00020126580014BR.GOV.BCB.PIX0136PACOTE-90H-TRANSCRICAO-AGENCIA-ANGELO5204000053039865802BR5925AGENCIA ANGELO6009SAOPAULO62070503***6304E2CA</div>
+      <div style="margin-top:18px;display:flex;gap:12px;flex-wrap:wrap">
+        <button class="btn btn-primary" id="copyPixBtn">Copiar código</button>
+        <button class="btn btn-dark" id="confirmPaymentBtn">Pagamento confirmado</button>
+      </div>
+    </div>
+  </section>
+  </div>
+</main>
+<script>
+const PACKAGE_LIMIT = 5400;
+const PACKAGE_PRICE = 2430;
+const PRICE_RATE = 0.45;
+let selectedMinutes = 0;
+let selectedFiles = [];
+let packageUnlocked = localStorage.getItem('aa_package_unlocked') === 'true';
+let usedMinutes = Number(localStorage.getItem('aa_used_minutes') || 0);
+const el = id => document.getElementById(id);
+function money(value){return 'R$ ' + Number(value).toFixed(2).replace('.', ',')}
+function formatMinutes(min){
+  min = Math.max(0, Math.round(min));
+  const h = Math.floor(min/60), m = min%60;
+  if(h && m) return `${h}h ${m}min`;
+  if(h) return `${h}h`;
+  return `${m}min`;
+}
+function revealPackage(){
+  el('pacote').classList.remove('package-hidden');
+  setTimeout(()=>el('pacote').scrollIntoView({behavior:'smooth',block:'start'}), 50);
+}
+function updatePackageUI(){
+  if(packageUnlocked){el('pacote').classList.remove('package-hidden');}
+  const remaining = Math.max(0, PACKAGE_LIMIT - usedMinutes);
+  const percent = Math.min(100, (usedMinutes / PACKAGE_LIMIT) * 100);
+  el('usedLabel').innerText = `${formatMinutes(usedMinutes)} usadas`;
+  el('remainingLabel').innerText = `${formatMinutes(remaining)} restantes`;
+  el('packageProgress').style.width = percent + '%';
+  el('unlockBanner').classList.toggle('active', packageUnlocked);
+  el('buyPackageBtn').disabled = packageUnlocked;
+  el('unlockPackageBtn').disabled = packageUnlocked;
+  el('modeBadge').innerText = packageUnlocked ? 'pacote ativo' : 'avulso';
+  el('totalLabel').innerText = packageUnlocked ? 'Consumo deste envio' : 'Valor final do envio';
+  updatePrice();
+}
+function getAvulsoPrice(minutes){
+  if(minutes <= 0) return 0;
+  if(minutes <= 20) return 9;
+  if(minutes <= 40) return 18;
+  if(minutes <= 60) return 27;
+  return Number((minutes * PRICE_RATE).toFixed(2));
+}
+function activeRule(minutes){
+  if(packageUnlocked) return 'package';
+  if(minutes <= 20) return '20';
+  if(minutes <= 40) return '40';
+  if(minutes <= 60) return '60';
+  return 'over';
+}
+function updatePrice(){
+  el('duration').innerText = selectedMinutes ? formatMinutes(selectedMinutes) : '00min';
+  el('time').innerText = selectedMinutes ? formatMinutes(Math.ceil(selectedMinutes * 0.35)) : '00min';
+  document.querySelectorAll('.rule').forEach(r=>r.classList.toggle('active', r.dataset.rule === activeRule(selectedMinutes)));
+  if(packageUnlocked){
+    el('price').innerText = selectedMinutes ? `${formatMinutes(selectedMinutes)} do pacote` : '0min do pacote';
+  }else{
+    el('price').innerText = money(getAvulsoPrice(selectedMinutes));
+  }
+  const remaining = PACKAGE_LIMIT - usedMinutes;
+  const warn = el('warningBox');
+  warn.className = 'alert warning';
+  warn.innerText = '';
+  if(packageUnlocked && selectedMinutes > remaining){
+    warn.className = 'alert danger show';
+    warn.innerText = `Este envio ultrapassa o saldo disponível. Restam ${formatMinutes(remaining)} no pacote.`;
+  }else if(packageUnlocked && selectedMinutes > 0){
+    warn.className = 'alert success show';
+    warn.innerText = `Este envio será abatido do pacote. Após processar, restarão ${formatMinutes(remaining - selectedMinutes)}.`;
+  }else if(!packageUnlocked && selectedMinutes > 0){
+    warn.className = 'alert warning show';
+    warn.innerText = 'Para usar o pacote completo de 90 horas, contrate e libere o pacote antes de enviar os arquivos finais.';
+  }else{
+    warn.classList.remove('show');
+  }
+}
+function renderFileList(){
+  const list = el('fileList');
+  list.innerHTML = '';
+  selectedFiles.forEach(file=>{
+    const row = document.createElement('div');
+    row.className = 'file-row';
+    row.innerHTML = `<span>${file.name}</span><span>${formatMinutes(file.minutes)}</span>`;
+    list.appendChild(row);
+  });
+}
+async function readVideoDuration(file){
+  return new Promise((resolve)=>{
+    const video = document.createElement('video');
+    video.preload = 'metadata';
+    video.onloadedmetadata = () => {
+      URL.revokeObjectURL(video.src);
+      resolve(Math.ceil(video.duration / 60));
+    };
+    video.onerror = () => resolve(0);
+    video.src = URL.createObjectURL(file);
+  });
+}
+el('videoInput').addEventListener('change', async function(){
+  const files = Array.from(this.files || []);
+  selectedFiles = [];
+  selectedMinutes = 0;
+  for(const file of files){
+    const minutes = await readVideoDuration(file);
+    selectedFiles.push({name:file.name, minutes});
+    selectedMinutes += minutes;
+  }
+  renderFileList();
+  updatePrice();
+});
+el('choosePackageBtn').addEventListener('click', ()=>{
+  revealPackage();
+});
+el('menuPackageLink').addEventListener('click', (e)=>{
+  e.preventDefault();
+  revealPackage();
+});
+el('buyPackageBtn').addEventListener('click', ()=>{
+  el('paymentBox').classList.add('active');
+  el('paymentBox').scrollIntoView({behavior:'smooth',block:'center'});
+});
+el('unlockPackageBtn').addEventListener('click', ()=>{
+  packageUnlocked = true;
+  localStorage.setItem('aa_package_unlocked','true');
+  updatePackageUI();
+});
+el('confirmPaymentBtn').addEventListener('click', ()=>{
+  packageUnlocked = true;
+  localStorage.setItem('aa_package_unlocked','true');
+  el('paymentBox').classList.remove('active');
+  updatePackageUI();
+});
+el('copyPixBtn').addEventListener('click', ()=>{
+  navigator.clipboard && navigator.clipboard.writeText(document.querySelector('.pixcode').innerText);
+  el('copyPixBtn').innerText = 'Código copiado';
+  setTimeout(()=>el('copyPixBtn').innerText='Copiar código',1600);
+});
+el('addToPackageBtn').addEventListener('click', ()=>{
+  if(!packageUnlocked){alert('Contrate e libere o pacote completo antes de adicionar horas.');return;}
+  if(selectedMinutes <= 0){alert('Selecione pelo menos um vídeo.');return;}
+  if(usedMinutes + selectedMinutes > PACKAGE_LIMIT){alert('Este envio ultrapassa o limite de 90 horas contratado.');return;}
+  usedMinutes += selectedMinutes;
+  localStorage.setItem('aa_used_minutes', String(usedMinutes));
+  simulateProcessing(true);
+  updatePackageUI();
+});
+el('processBtn').addEventListener('click', ()=>simulateProcessing(false));
+function simulateProcessing(fromPackage){
+  const logs = el('logs');
+  const name = selectedFiles[0]?.name || 'envio_atual.mp4';
+  el('currentFile').innerText = name;
+  const steps = [
+    '[OK] Arquivos recebidos',
+    fromPackage ? '[OK] Horas abatidas do pacote' : '[OK] Valor calculado para envio avulso',
+    '[OK] Conteúdo preparado para processamento',
+    '[OK] Texto final em produção',
+    '[PROCESSANDO] Gerando arquivos finais...'
+  ];
+  logs.innerHTML = '';
+  let pct = 0;
+  steps.forEach((s,i)=>{
+    setTimeout(()=>{
+      const div = document.createElement('div');
+      div.className = 'log';
+      div.innerHTML = s.replace('[OK]','<span>[OK]</span>').replace('[PROCESSANDO]','<span class="wait">[PROCESSANDO]</span>');
+      logs.appendChild(div);
+      pct = Math.min(92, (i+1)*18);
+      el('processFill').style.width = pct + '%';
+      el('processPercent').innerText = pct + '%';
+    }, i*450);
+  });
+}
+el('resetDemo').addEventListener('click', ()=>{
+  localStorage.removeItem('aa_package_unlocked');
+  localStorage.removeItem('aa_used_minutes');
+  packageUnlocked = false;
+  usedMinutes = 0;
+  selectedMinutes = 0;
+  selectedFiles = [];
+  el('fileList').innerHTML = '';
+  el('videoInput').value = '';
+  el('pacote').classList.add('package-hidden');
+  updatePackageUI();
+});
+el('newProjectBtn').addEventListener('click', ()=>{
+  selectedMinutes = 0;
+  selectedFiles = [];
+  el('fileList').innerHTML = '';
+  el('videoInput').value = '';
+  updatePrice();
+  window.scrollTo({top:0,behavior:'smooth'});
+});
+updatePackageUI();
+</script>
+</body>
+</html>
